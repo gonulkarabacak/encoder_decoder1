@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encoder Decoder</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'encoder/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Text Encoder/Decoder</h1>
+        <form method="post" action=".">
+            {% csrf_token %}
+            <label for="text">Enter text to encode:</label>
+            <input type="text" id="text" name="text" required>
+            <label for="key">Enter key:</label>
+            <input type="text" id="key" name="key" required>
+            <button type="submit">Encode</button>
+        </form>
+        {% if encoded_text %}
+            <p>Encoded text: {{ encoded_text }}</p>
+        {% endif %}
+
+        <form method="post" action="{% url 'decode_text' %}">
+            {% csrf_token %}
+            <label for="encoded_text">Enter encoded text to decode:</label>
+            <input type="text" id="encoded_text" name="encoded_text" required>
+            <label for="key">Enter key:</label>
+            <input type="text" id="key" name="key" required>
+            <button type="submit">Decode</button>
+        </form>
+        {% if decoded_text %}
+            <p>Decoded text: {{ decoded_text }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
